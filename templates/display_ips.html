@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="60">
+    <title>Blocked IPs</title>
+</head>
+
+<body>
+    {% include 'menu.html' %}
+    <br>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>IP Address</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for match in matches %}
+            <tr>
+                <td>{{ match[0] }}</td>
+                <td>{{ match[1] }}</td>
+                <td>Blocked</td>
+                <td>
+                    <form action="/unblock" method="post">
+                        <input type="text" name="quota" placeholder="Enter quota" value="2000">
+                        <input type="hidden" name="username" value="{{ match[0] }}">
+                        <button type="submit">Unblock</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            {% for ip in unmatched_ips %}
+            <tr>
+                <td>-</td>
+                <td>{{ ip }}</td>
+                <td>Not Found in IPP</td>
+                <td>-</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <form action="/blocked-ips" method="get" style="margin-top: 20px;">
+        <input type="submit" value="Refresh IPs">
+    </form>
+
+    <!-- Logout button -->
+    <form action="/logout" method="get" style="margin-top: 10px;">
+        <input type="submit" value="Logout">
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+# config.yaml
+
+
+secret_key: app_secret_key
+
+# SSH configuration
+ssh:
+  hostname: 10.1.1.1
+  username: user
+  key_filename: user.key
+  ipp_file_path: /var/etc/openvpn/ipp.txt
+
+commands:
+  unblock_command: /usr/local/unblock.py
+
+# API details
+api:
+  url: https://10.1.1.1/api/firewall/alias_util/list/Block_Client_OpenVPN
+  auth:
+    username: api_user_key
+    password: api_pass
+
+# Users for HTTP Basic Auth
+users:
+  admin: password1 
